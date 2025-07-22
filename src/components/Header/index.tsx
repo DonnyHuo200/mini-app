@@ -1,5 +1,11 @@
+import { ConnectButton } from "@rainbow-me/rainbowkit";
+
 const Header = () => {
-  return <div>header</div>;
+  return (
+    <div>
+      <ConnectButton chainStatus="icon" />
+    </div>
+  );
 };
 
 export default Header;

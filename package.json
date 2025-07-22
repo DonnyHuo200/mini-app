@@ -10,9 +10,13 @@
   },
   "dependencies": {
     "@coinbase/onchainkit": "^0.38.17",
+    "@rainbow-me/rainbowkit": "^2.2.8",
+    "@tanstack/react-query": "^5.83.0",
     "next": "15.4.2",
     "react": "19.1.0",
-    "react-dom": "19.1.0"
+    "react-dom": "19.1.0",
+    "viem": "2.x",
+    "wagmi": "^2.16.0"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
