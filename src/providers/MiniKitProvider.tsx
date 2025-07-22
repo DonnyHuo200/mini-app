@@ -7,12 +7,23 @@ import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
 import { MiniKitProvider } from "@coinbase/onchainkit/minikit";
 import { ReactNode } from "react";
 import { base } from "wagmi/chains";
+import {
+  coinbaseWallet,
+  metaMaskWallet,
+  walletConnectWallet
+} from "@rainbow-me/rainbowkit/wallets";
 
 export function MiniKitContextProvider({ children }: { children: ReactNode }) {
   const config = getDefaultConfig({
     appName: "Solv App",
     projectId: "a22a140d64a44539cf4c025ee97cf1c2",
     chains: [base],
+    wallets: [
+      {
+        groupName: "Popular",
+        wallets: [coinbaseWallet, metaMaskWallet, walletConnectWallet]
+      }
+    ],
     ssr: true // If your dApp uses server side rendering (SSR)
   });
 
