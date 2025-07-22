@@ -1,7 +1,8 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useMiniKit } from "@coinbase/onchainkit/minikit";
+import Header from "@/components/Header";
 
 export default function Home() {
   const { setFrameReady, isFrameReady } = useMiniKit();
@@ -13,5 +14,9 @@ export default function Home() {
     }
   }, [setFrameReady, isFrameReady]);
 
-  return <div>Your app content goes here</div>;
+  return (
+    <div>
+      <Header />
+    </div>
+  );
 }
