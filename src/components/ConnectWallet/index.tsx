@@ -1,98 +1,40 @@
 "use client";
 
-import { ConnectButton } from "@rainbow-me/rainbowkit";
+import { Button } from "@radix-ui/themes";
+import { useEffect } from "react";
+import { useAccount, useConnect, useDisconnect } from "wagmi";
 
 export const ConnectWallet = () => {
+  const { isConnected, address } = useAccount();
+  const { connect, connectors } = useConnect();
+  const { disconnect } = useDisconnect();
+
+  useEffect(() => {
+    connect({ connector: connectors[0] });
+  }, [connect, connectors]);
+
   return (
-    <ConnectButton.Custom>
-      {({
-        account,
-        chain,
-        openAccountModal,
-        openChainModal,
-        openConnectModal,
-        authenticationStatus,
-        mounted
-      }) => {
-        // Note: If your app doesn't use authentication, you
-        // can remove all 'authenticationStatus' checks
-        const ready = mounted && authenticationStatus !== "loading";
-        const connected =
-          ready &&
-          account &&
-          chain &&
-          (!authenticationStatus || authenticationStatus === "authenticated");
-        return (
-          <div
-            {...(!ready && {
-              "aria-hidden": true,
-              style: {
-                opacity: 0,
-                pointerEvents: "none",
-                userSelect: "none"
-              }
-            })}
-          >
-            {(() => {
-              if (!connected) {
-                return (
-                  <button
-                    className="border border-solid border-black rounded-2xl px-3 py-1 text-[14px]"
-                    onClick={openConnectModal}
-                  >
-                    Connect Wallet
-                  </button>
-                );
-              }
-              if (chain.unsupported) {
-                return (
-                  <button onClick={openChainModal} type="button">
-                    Wrong network
-                  </button>
-                );
-              }
-              return (
-                <div style={{ display: "flex", gap: 12 }}>
-                  {/* <button
-                    onClick={openChainModal}
-                    style={{ display: "flex", alignItems: "center" }}
-                    type="button"
-                  >
-                    {chain.hasIcon && (
-                      <div
-                        style={{
-                          background: chain.iconBackground,
-                          width: 12,
-                          height: 12,
-                          borderRadius: 999,
-                          overflow: "hidden",
-                          marginRight: 4
-                        }}
-                      >
-                        {chain.iconUrl && (
-                          <img
-                            alt={chain.name ?? "Chain icon"}
-                            src={chain.iconUrl}
-                            style={{ width: 12, height: 12 }}
-                          />
-                        )}
-                      </div>
-                    )}
-                    {chain.name}
-                  </button> */}
-                  <button
-                    onClick={openAccountModal}
-                    type="button"
-                    className="border border-solid border-black rounded-2xl px-3 py-1 text-[14px]"
-                  >
-                    {account.displayName}
-                  </button>
-                </div>
-              );
-            })()}
-          </div>
-        );
-      }}
-    </ConnectButton.Custom>
+    <div>
+      {isConnected ? (
+        <>
+          <div>{`You're connected!`}</div>
+          <div>Address: {address}</div>
+          <Button onClick={() => disconnect()}>disconnect</Button>
+        </>
+      ) : (
+        <>
+          {connectors &&
+            connect &&
+            connectors.map((connector) => (
+              <Button
+                key={connector.uid}
+                onClick={() => connect({ connector })}
+              >
+                {connector.name}
+              </Button>
+            ))}
+        </>
+      )}
+    </div>
   );
 };
