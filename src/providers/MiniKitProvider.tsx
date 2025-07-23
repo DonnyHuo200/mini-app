@@ -9,6 +9,9 @@ import { ReactNode } from "react";
 import { base } from "wagmi/chains";
 import { http, createConfig } from "wagmi";
 import { farcasterMiniApp as miniAppConnector } from "@farcaster/miniapp-wagmi-connector";
+import { sdk } from "@farcaster/miniapp-sdk";
+
+console.log("sdk", sdk);
 
 export function MiniKitContextProvider({ children }: { children: ReactNode }) {
   const config = createConfig({
