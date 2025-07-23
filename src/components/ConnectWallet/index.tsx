@@ -1,15 +1,17 @@
 "use client";
 
 import { Button } from "@radix-ui/themes";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useAccount, useConnect, useDisconnect } from "wagmi";
 
 import { sdk } from "@farcaster/miniapp-sdk";
 
 export const ConnectWallet = () => {
+  const [userInfo, setUserInfo] = useState<unknown>();
   const getInfo = async () => {
     const info = await sdk.context;
     console.log("info", info);
+    setUserInfo(info);
     return info;
   };
 
@@ -42,7 +44,7 @@ export const ConnectWallet = () => {
                 key={connector.uid}
                 onClick={() => connect({ connector })}
               >
-                {connector.name}
+                {connector.name} {JSON.stringify(userInfo)}
               </Button>
             ))}
         </>
