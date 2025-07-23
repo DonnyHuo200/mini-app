@@ -37,9 +37,8 @@ export const ConnectWallet = () => {
       {isConnected ? (
         <>
           <div>{`You're connected!`}</div>
-          <div>
-            Address: {address} {userInfo?.user?.displayName}
-          </div>
+          <div>Address: {address}</div>
+          <div>Name: {userInfo?.user?.displayName}</div>
           <Button onClick={() => disconnect()}>disconnect</Button>
         </>
       ) : (
