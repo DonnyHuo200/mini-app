@@ -6,11 +6,16 @@ import { useAccount, useConnect, useDisconnect } from "wagmi";
 
 import { sdk } from "@farcaster/miniapp-sdk";
 
+interface UserInfo {
+  user: {
+    displayName?: string;
+  };
+}
+
 export const ConnectWallet = () => {
-  const [userInfo, setUserInfo] = useState<unknown>();
+  const [userInfo, setUserInfo] = useState<UserInfo>();
   const getInfo = async () => {
-    const info = await sdk.context;
-    console.log("info", info);
+    const info: UserInfo = await sdk.context;
     setUserInfo(info);
     return info;
   };
@@ -32,7 +37,9 @@ export const ConnectWallet = () => {
       {isConnected ? (
         <>
           <div>{`You're connected!`}</div>
-          <div>Address: {address}</div>
+          <div>
+            Address: {address} {userInfo?.user?.displayName}
+          </div>
           <Button onClick={() => disconnect()}>disconnect</Button>
         </>
       ) : (
@@ -44,7 +51,7 @@ export const ConnectWallet = () => {
                 key={connector.uid}
                 onClick={() => connect({ connector })}
               >
-                {connector.name} {JSON.stringify(userInfo)}
+                {connector.name}
               </Button>
             ))}
         </>
