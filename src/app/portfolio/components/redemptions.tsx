@@ -84,6 +84,8 @@ const Redemptions = () => {
         return "Ready to claim";
       case "Redeeming":
         return "Pending";
+      case "Revoked":
+        return "Revoked";
     }
   };
 
