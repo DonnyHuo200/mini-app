@@ -1,0 +1,22 @@
+{
+  "environments": {
+    "production": {
+      "branch": "main",
+      "env": {
+        "NODE_ENV": "production"
+      }
+    },
+    "preview": {
+      "branch": ["pre"],
+      "env": {
+        "NODE_ENV": "preview"
+      }
+    },
+    "development": {
+      "branch": ["dev"],
+      "env": {
+        "NODE_ENV": "dev"
+      }
+    }
+  }
+}
