@@ -47,9 +47,11 @@ export const ConnectWallet = () => {
             </div>
           </Popover.Trigger>
           <Popover.Content>
-            {userInfo?.user?.displayName && (
-              <div>Name: {userInfo?.user?.displayName || "--"}</div>
-            )}
+            <div className="text-sm mb-2">
+              {userInfo?.user?.displayName && (
+                <div>Name: {userInfo?.user?.displayName || "--"}</div>
+              )}
+            </div>
             <Button
               className="!bg-mainColor !rounded-2xl"
               onClick={() => disconnect()}
