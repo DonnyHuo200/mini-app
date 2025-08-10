@@ -1,5 +1,6 @@
 "use client";
 
+import { useMiniKit } from "@coinbase/onchainkit/minikit";
 import useScrollToHash from "@/hooks/useScrollToHash";
 
 import BoostRewards from "./components/boostRewards";
@@ -12,6 +13,15 @@ import Overview from "./components/overview";
 import BTCTrade from "./components";
 
 const BtcPlusPage = () => {
+  const { setFrameReady, isFrameReady } = useMiniKit();
+
+  // The setFrameReady() function is called when your mini-app is ready to be shown
+  useEffect(() => {
+    if (!isFrameReady) {
+      setFrameReady();
+    }
+  }, [setFrameReady, isFrameReady]);
+
   useScrollToHash();
 
   return (
