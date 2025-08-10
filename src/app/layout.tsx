@@ -1,19 +1,9 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
-import "./globals.css";
+
 import { MiniKitContextProvider } from "@/providers/MiniKitProvider";
-import { Theme } from "@radix-ui/themes";
+
+import "../assets/css/globals.css";
 import "@radix-ui/themes/styles.css";
-
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"]
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"]
-});
 
 export async function generateMetadata(): Promise<Metadata> {
   const URL = process.env.NEXT_PUBLIC_URL;
@@ -47,12 +37,8 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        <Theme appearance="dark">
-          <MiniKitContextProvider>{children}</MiniKitContextProvider>
-        </Theme>
+      <body>
+        <MiniKitContextProvider>{children}</MiniKitContextProvider>
       </body>
     </html>
   );

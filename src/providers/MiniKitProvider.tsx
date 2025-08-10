@@ -1,34 +1,56 @@
 "use client";
 
-import "@rainbow-me/rainbowkit/styles.css";
-import { RainbowKitProvider } from "@rainbow-me/rainbowkit";
-import { WagmiProvider } from "wagmi";
-import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
-import { MiniKitProvider } from "@coinbase/onchainkit/minikit";
 import { ReactNode } from "react";
-import { base } from "wagmi/chains";
-import { http, createConfig } from "wagmi";
-import { farcasterMiniApp as miniAppConnector } from "@farcaster/miniapp-wagmi-connector";
-import { sdk } from "@farcaster/miniapp-sdk";
+import { WagmiProvider } from "wagmi";
+import { http, createConfig, createStorage, cookieStorage } from "wagmi";
+import { base, sepolia } from "wagmi/chains";
+import { metaMask } from "wagmi/connectors";
 
-console.log("sdk", sdk);
+import { ApolloProvider } from "@apollo/client";
+import { MiniKitProvider } from "@coinbase/onchainkit/minikit";
+import { farcasterMiniApp as miniAppConnector } from "@farcaster/miniapp-wagmi-connector";
+import { Theme } from "@radix-ui/themes";
+import { useSolvBtcStore, useStore } from "@/states";
+import client from "@/graphql/clientsFactory";
+import Header from "@/components/Header";
+// import { RainbowKitProvider } from "@rainbow-me/rainbowkit";
+// import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
+import Notice from "@/components/Notice";
+import TradingDialog from "@/components/TradingDialog";
+import TradingResult from "@/components/TradingResult";
+
+import "@rainbow-me/rainbowkit/styles.css";
+
+function ThemeProvider({ children }: { children: ReactNode }) {
+  const { mode } = useSolvBtcStore();
+
+  return (
+    <Theme appearance={mode as "light" | "dark" | "inherit" | undefined}>
+      {children}
+    </Theme>
+  );
+}
 
 export function MiniKitContextProvider({ children }: { children: ReactNode }) {
   const config = createConfig({
-    chains: [base],
+    chains: [sepolia],
     transports: {
-      [base.id]: http()
+      [sepolia.id]: http()
+      // [base.id]: http()
     },
-    connectors: [miniAppConnector()],
+    storage: createStorage({ storage: cookieStorage }),
+    connectors: [metaMask()],
+    // miniAppConnector()
     ssr: true
   });
 
-  const queryClient = new QueryClient();
+  const { noticeOpen } = useStore();
 
   return (
-    <WagmiProvider config={config}>
-      <QueryClientProvider client={queryClient}>
-        <RainbowKitProvider modalSize="compact" locale={"en"}>
+    <ThemeProvider>
+      <ApolloProvider client={client}>
+        <WagmiProvider config={config}>
+          {/* <RainbowKitProvider modalSize="compact" locale={"en"}> */}
           <MiniKitProvider
             apiKey={process.env.NEXT_PUBLIC_CDP_CLIENT_API_KEY}
             chain={base}
@@ -41,10 +63,17 @@ export function MiniKitContextProvider({ children }: { children: ReactNode }) {
               }
             }}
           >
-            {children}
+            <Header />
+            <div className="pt-[50px]">
+              {noticeOpen ? <Notice /> : null}
+              {children}
+            </div>
+            <TradingDialog />
+            <TradingResult />
           </MiniKitProvider>
-        </RainbowKitProvider>
-      </QueryClientProvider>
-    </WagmiProvider>
+          {/* </RainbowKitProvider> */}
+        </WagmiProvider>
+      </ApolloProvider>
+    </ThemeProvider>
   );
 }

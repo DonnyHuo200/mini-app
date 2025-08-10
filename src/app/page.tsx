@@ -1,10 +1,10 @@
 "use client";
 
 import { useEffect } from "react";
-import { useMiniKit } from "@coinbase/onchainkit/minikit";
-import Header from "@/components/Header";
 
-export default function Home() {
+import { useMiniKit } from "@coinbase/onchainkit/minikit";
+
+export default function Home({ children }: { children: React.ReactNode }) {
   const { setFrameReady, isFrameReady } = useMiniKit();
 
   // The setFrameReady() function is called when your mini-app is ready to be shown
@@ -14,9 +14,5 @@ export default function Home() {
     }
   }, [setFrameReady, isFrameReady]);
 
-  return (
-    <div>
-      <Header />
-    </div>
-  );
+  return <div className="my-3 max-w-[1200px] md:mx-auto">{children}</div>;
 }

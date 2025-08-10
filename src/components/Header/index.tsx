@@ -1,12 +1,66 @@
 "use client";
 
+import {
+  SunIcon,
+  MoonIcon,
+  HamburgerMenuIcon,
+  Cross1Icon
+} from "@radix-ui/react-icons";
+import classNames from "classnames";
+import Image from "next/image";
+
+import { useSolvBtcStore, useStore } from "@/states";
+import solvLogoDark from "@/assets/images/solv-logo-dark.svg";
+import solvLogoLight from "@/assets/images/solv-logo-light.svg";
+
 import { ConnectWallet } from "../ConnectWallet";
+import Nav from "../Nav";
 
 const Header = () => {
+  const { mode, setMode, navOpen, setNavOpen } = useSolvBtcStore();
+
   return (
-    <>
-      <ConnectWallet />
-    </>
+    <div
+      className={classNames(
+        "fixed top-0 left-0 right-0 z-50 h-[50px] border-b  flex items-center justify-between px-4",
+        {
+          "bg-black border-gray-800": mode === "dark",
+          "bg-white border-gray-200": mode === "light"
+        }
+      )}
+    >
+      <div className="flex items-center gap-4">
+        <Image
+          src={mode === "dark" ? solvLogoLight : solvLogoDark}
+          width={25}
+          height={31}
+          alt="Solv Logo"
+        />
+
+        <div className="cursor-pointer" onClick={() => setNavOpen(!navOpen)}>
+          {navOpen ? (
+            <Cross1Icon className="w-4 h-4" />
+          ) : (
+            <HamburgerMenuIcon className="w-4 h-4" />
+          )}
+        </div>
+        {navOpen && <Nav />}
+      </div>
+
+      <div className="flex items-center gap-2">
+        <ConnectWallet />
+        <div
+          className="cursor-pointer border border-solid border-gray-500 rounded-full p-1"
+          onClick={() => setMode(mode === "dark" ? "light" : "dark")}
+        >
+          {mode == "dark" ? (
+            <SunIcon width={18} height={18} />
+          ) : (
+            <MoonIcon width={18} height={18} />
+          )}
+        </div>
+      </div>
+    </div>
   );
 };
 

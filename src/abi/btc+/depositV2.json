@@ -1,0 +1,41 @@
+[
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "targetToken_",
+        "type": "address"
+      },
+      {
+        "internalType": "address",
+        "name": "currency_",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "currencyAmount_",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "minimumTargetTokenAmount_",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint64",
+        "name": "expireTime_",
+        "type": "uint64"
+      }
+    ],
+    "name": "deposit",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "targetTokenAmount_",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  }
+]

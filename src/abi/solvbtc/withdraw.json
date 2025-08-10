@@ -1,0 +1,26 @@
+[
+  {
+    "inputs": [
+      {
+        "internalType": "bytes32",
+        "name": "poolId_",
+        "type": "bytes32"
+      },
+      {
+        "internalType": "uint256",
+        "name": "redeemAmount_",
+        "type": "uint256"
+      }
+    ],
+    "name": "createRedemption",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "redemptionId_",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  }
+]
