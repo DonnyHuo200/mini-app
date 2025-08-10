@@ -51,7 +51,11 @@ const Withdraw = ({ btcPoolInfo }: { btcPoolInfo: any }) => {
   const { connect, connectors } = useConnect();
 
   // get base balance
-  const { data: baseBalanceOf, refetch: refetchBalance } = useReadContract({
+  const {
+    data: baseBalanceOf,
+    refetch: refetchBalance,
+    status: baseBalanceStatus
+  } = useReadContract({
     abi: erc20Abi,
     address: btcPoolInfo?.btcPoolInfo?.wrappedTokenInfo?.tokenAddress,
     functionName: "balanceOf",
@@ -70,17 +74,19 @@ const Withdraw = ({ btcPoolInfo }: { btcPoolInfo: any }) => {
   }, [baseBalanceOf, btcPoolInfo?.btcPoolInfo?.wrappedTokenInfo?.decimals]);
 
   // get target balance
-  const { data: targetBalanceOf } = useReadContract({
-    abi: erc20Abi,
-    address: btcPoolInfo?.btcPoolInfo?.poolInfo?.currencyInfo?.currencyAddress,
-    functionName: "balanceOf",
-    args: [address as Address],
-    query: {
-      enabled:
-        !!btcPoolInfo?.btcPoolInfo?.poolInfo?.currencyInfo?.currencyAddress &&
-        !!address
-    }
-  });
+  const { data: targetBalanceOf, status: targetBalanceStatus } =
+    useReadContract({
+      abi: erc20Abi,
+      address:
+        btcPoolInfo?.btcPoolInfo?.poolInfo?.currencyInfo?.currencyAddress,
+      functionName: "balanceOf",
+      args: [address as Address],
+      query: {
+        enabled:
+          !!btcPoolInfo?.btcPoolInfo?.poolInfo?.currencyInfo?.currencyAddress &&
+          !!address
+      }
+    });
 
   const targetBalance = useMemo(() => {
     return formatUnits(
@@ -416,7 +422,7 @@ const Withdraw = ({ btcPoolInfo }: { btcPoolInfo: any }) => {
             </div>
           </div>
           <div className="flex items-center justify-end gap-2">
-            {baseBalanceOf ? (
+            {baseBalanceStatus === "success" ? (
               <>
                 <span
                   className={classNames("text-grayColor text-xs", {
@@ -526,7 +532,7 @@ const Withdraw = ({ btcPoolInfo }: { btcPoolInfo: any }) => {
             </div>
           </div>
           <div className="text-grayColor text-xs text-right flex items-center justify-end">
-            {targetBalanceOf ? (
+            {targetBalanceStatus === "success" ? (
               <>Balance: {formatNumber(restrictDecimals(targetBalance, 6))}</>
             ) : (
               <Skeleton className="w-20 h-4" />
