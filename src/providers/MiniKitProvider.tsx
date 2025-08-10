@@ -48,6 +48,7 @@ export function MiniKitContextProvider({ children }: { children: ReactNode }) {
           transports: {
             [base.id]: http()
           },
+          connectors: [miniAppConnector()],
           storage: createStorage({ storage: cookieStorage })
         });
 
