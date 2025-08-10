@@ -77,7 +77,7 @@ const Deposit = ({ btcPoolInfo }: { btcPoolInfo: any }) => {
   const { connect, connectors } = useConnect();
 
   // get base balance
-  const { data: baseBalanceOf } = useReadContract({
+  const { data: baseBalanceOf, status: baseBalanceStatus } = useReadContract({
     abi: erc20Abi,
     address: selectedCurrency?.currencyAddress,
     functionName: "balanceOf",
@@ -91,7 +91,11 @@ const Deposit = ({ btcPoolInfo }: { btcPoolInfo: any }) => {
     return formatUnits(baseBalanceOf || BigInt(0), selectedCurrency?.decimals);
   }, [baseBalanceOf, selectedCurrency?.decimals]);
 
-  const { data: targetBalanceOf, refetch: refetchBalance } = useReadContract({
+  const {
+    data: targetBalanceOf,
+    refetch: refetchBalance,
+    status: targetBalanceStatus
+  } = useReadContract({
     abi: erc20Abi,
     address: btcPoolInfo?.btcPoolInfo?.wrappedTokenInfo?.tokenAddress,
     functionName: "balanceOf",
@@ -480,7 +484,7 @@ const Deposit = ({ btcPoolInfo }: { btcPoolInfo: any }) => {
           </div>
 
           <div className="flex items-center justify-end gap-2">
-            {baseBalanceOf ? (
+            {baseBalanceStatus === "success" ? (
               <>
                 <span
                   className={classNames("text-grayColor text-xs", {
@@ -590,7 +594,7 @@ const Deposit = ({ btcPoolInfo }: { btcPoolInfo: any }) => {
             </div>
           </div>
           <div className="text-grayColor text-xs text-right flex items-center justify-end">
-            {targetBalanceOf ? (
+            {targetBalanceStatus === "success" ? (
               <> Balance: {formatNumber(restrictDecimals(targetBalance, 6))}</>
             ) : (
               <Skeleton className="w-20 h-4" />
