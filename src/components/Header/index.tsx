@@ -39,9 +39,9 @@ const Header = () => {
 
         <div className="cursor-pointer" onClick={() => setNavOpen(!navOpen)}>
           {navOpen ? (
-            <Cross1Icon className="w-4 h-4" />
+            <Cross1Icon className="w-5 h-5" />
           ) : (
-            <HamburgerMenuIcon className="w-4 h-4" />
+            <HamburgerMenuIcon className="w-5 h-5" />
           )}
         </div>
         {navOpen && <Nav />}

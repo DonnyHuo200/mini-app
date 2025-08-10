@@ -70,3 +70,9 @@ html,body {
 body::-webkit-scrollbar {
   display: none;
 }
+
+.rt-BaseTabListTriggerInner:hover {
+  background-color: transparent !important;
+  box-shadow: none !important;
+}
+
