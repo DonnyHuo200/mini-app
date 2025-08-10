@@ -39,8 +39,9 @@ export function MiniKitContextProvider({ children }: { children: ReactNode }) {
       // [base.id]: http()
     },
     storage: createStorage({ storage: cookieStorage }),
-    connectors: [metaMask()],
-    // miniAppConnector()
+    connectors: [
+      process.env.NEXT_PUBLIC_ENV === "dev" ? metaMask() : miniAppConnector()
+    ],
     ssr: true
   });
 
