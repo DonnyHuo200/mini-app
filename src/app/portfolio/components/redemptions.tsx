@@ -85,7 +85,7 @@ const Redemptions = () => {
       case "Redeeming":
         return "Pending";
       case "Revoked":
-        return "Revoked";
+        return "Claimed";
     }
   };
 
@@ -150,10 +150,15 @@ const Redemptions = () => {
                 <button
                   className={classNames("text-left", {
                     "text-yellow-500 underline decoration-dashed":
-                      asset?.redeemState !== "Claimable",
-                    "text-green-500": asset?.redeemState === "Claimable"
+                      asset?.redeemState === "Redeeming" ||
+                      asset?.redeemState === "Pending",
+                    "text-green-500": asset?.redeemState === "Claimable",
+                    "text-mainColor": asset?.redeemState === "Revoked"
                   })}
-                  disabled={asset?.redeemState == "Claimable"}
+                  disabled={
+                    asset?.redeemState === "Pending" ||
+                    asset?.redeemState === "Redeeming"
+                  }
                   onClick={() => goToPage(asset)}
                 >
                   <span>{getRedeemState(asset?.redeemState)}</span>
