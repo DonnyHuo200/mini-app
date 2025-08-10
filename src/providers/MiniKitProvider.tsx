@@ -32,18 +32,24 @@ function ThemeProvider({ children }: { children: ReactNode }) {
 }
 
 export function MiniKitContextProvider({ children }: { children: ReactNode }) {
-  const config = createConfig({
-    chains: [sepolia],
-    transports: {
-      [sepolia.id]: http()
-      // [base.id]: http()
-    },
-    storage: createStorage({ storage: cookieStorage }),
-    connectors: [
-      process.env.NEXT_PUBLIC_ENV === "dev" ? metaMask() : miniAppConnector()
-    ],
-    ssr: true
-  });
+  const config =
+    process.env.NEXT_PUBLIC_ENV === "dev"
+      ? createConfig({
+          chains: [sepolia],
+          transports: {
+            [sepolia.id]: http()
+          },
+          storage: createStorage({ storage: cookieStorage }),
+          connectors: [metaMask()],
+          ssr: true
+        })
+      : createConfig({
+          chains: [base],
+          transports: {
+            [base.id]: http()
+          },
+          storage: createStorage({ storage: cookieStorage })
+        });
 
   const { noticeOpen } = useStore();
 
