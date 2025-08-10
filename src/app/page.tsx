@@ -1,10 +1,11 @@
 "use client";
 
+import { redirect } from "next/navigation";
 import { useEffect } from "react";
 
 import { useMiniKit } from "@coinbase/onchainkit/minikit";
 
-export default function Home({ children }: { children: React.ReactNode }) {
+export default function Home() {
   const { setFrameReady, isFrameReady } = useMiniKit();
 
   // The setFrameReady() function is called when your mini-app is ready to be shown
@@ -14,5 +15,5 @@ export default function Home({ children }: { children: React.ReactNode }) {
     }
   }, [setFrameReady, isFrameReady]);
 
-  return <div className="my-3 max-w-[1200px] md:mx-auto">{children}</div>;
+  redirect("/btcPlus");
 }

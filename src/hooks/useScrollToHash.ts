@@ -1,11 +1,10 @@
 "use client";
 
-import { usePathname, useSearchParams } from "next/navigation";
+import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 
 const useScrollToHash = () => {
   const pathname = usePathname();
-  const searchParams = useSearchParams();
 
   const [hash, setHash] = useState("");
 
@@ -21,7 +20,7 @@ const useScrollToHash = () => {
         }
       }, 500);
     }
-  }, [pathname, searchParams]);
+  }, [pathname]);
 
   return { hash };
 };

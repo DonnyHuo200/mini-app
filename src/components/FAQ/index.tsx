@@ -2,15 +2,10 @@
 
 import { Card } from "@radix-ui/themes";
 import { solvFAQ } from "@/constants";
-import useScrollToHash from "@/hooks/useScrollToHash";
 
 import DynamicAccordion from "../Accordion";
 
-const FAQ = () => {
-  const { hash } = useScrollToHash();
-
-  console.log("hash", hash);
-
+const FAQ = ({ hash }: { hash?: string }) => {
   return (
     <Card className="border-0 !p-0 !pb-4 scroll-mt-[50px]" id="faqs">
       <div className="p-4 text-[28px] font-medium font-MatterSQ-Medium">
