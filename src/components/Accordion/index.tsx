@@ -40,7 +40,7 @@ const DynamicAccordion: React.FC<DynamicAccordionProps> = ({
           </Accordion.Header>
           <Accordion.Content
             className="px-4 overflow-hidden text-[12px]
-              data-[state=open]:animate-slideDown data-[state=closed]:animate-slideUp"
+              data-[state=open]:animate-slideDown data-[state=closed]:animate-slideUp text-grayColor"
           >
             <ReactMarkdown
               remarkPlugins={[remarkGfm]}

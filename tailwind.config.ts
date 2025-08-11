@@ -7,7 +7,8 @@ const config = {
       colors: {
         mainColor: "#7667EB",
         grayColor: "#a5a5a5",
-        primaryColor: "#BDC4FB"
+        primaryColor: "#BDC4FB",
+        secondaryColor: "#bdc4fd"
       },
       fontFamily: {
         "MatterSQ-Bold": ["MatterSQ-Bold"],
