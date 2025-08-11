@@ -3,7 +3,6 @@
 import { useEffect } from "react";
 
 import { useMiniKit } from "@coinbase/onchainkit/minikit";
-import useScrollToHash from "@/hooks/useScrollToHash";
 
 import BoostRewards from "./components/boostRewards";
 import BtcPlusRule from "./components/btcPlusRules";
@@ -24,8 +23,6 @@ const BtcPlusPage = () => {
       setFrameReady();
     }
   }, [setFrameReady, isFrameReady]);
-
-  useScrollToHash();
 
   return (
     <div>

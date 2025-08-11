@@ -14,7 +14,7 @@ import { useCallback, useEffect, useMemo, useRef } from "react";
 
 import { GET_OPENFUND_NAVS_GRAPHQL } from "@/graphql/queries/product-detail";
 import { useQuery } from "@apollo/client";
-import { Card } from "@radix-ui/themes";
+import { Card, Skeleton } from "@radix-ui/themes";
 import { useBtcPlusStore, useSolvBtcStore } from "@/states";
 import { useOpenFundNav } from "@/hooks/useOpenFundNav";
 import { NavHistoryData } from "@/types/API";
@@ -339,20 +339,34 @@ const PriceCharts = () => {
       <Card>
         <div className="font-MatterSQ-Medium text-sm">Price Chart</div>
 
-        <div>
-          <span className="font-MatterSQ-Regular text-xs text-gray">
-            1 BTC at the start of the vault is now
-          </span>{" "}
-          <span className="font-MatterSQ-Medium text-[14px]">
-            {lastPrice ? `${lastPrice} BTC` : "--"}
-          </span>
-        </div>
-        <div className="relative size-full mt-6">
-          <ReactECharts
-            option={options}
-            style={{ height: "200px", width: "100%" }}
-          />
-        </div>
+        {loading ? (
+          <div>
+            <Skeleton loading className="w-full h-4 mt-4"></Skeleton>
+            <Skeleton loading className="w-full h-4 mt-4"></Skeleton>
+            <Skeleton loading className="w-full h-4 mt-4"></Skeleton>
+            <Skeleton loading className="w-full h-4 mt-4"></Skeleton>
+            <Skeleton loading className="w-full h-4 mt-4"></Skeleton>
+            <Skeleton loading className="w-full h-4 mt-4"></Skeleton>
+          </div>
+        ) : (
+          <>
+            <div className="flex items-center gap-2 mt-2">
+              <span className="font-MatterSQ-Regular text-xs text-gray">
+                1 BTC at the start of the vault is now
+              </span>{" "}
+              <span className="font-MatterSQ-Medium text-[14px]">
+                {lastPrice ? `${lastPrice} BTC` : "--"}
+              </span>
+            </div>
+
+            <div className="relative size-full mt-6">
+              <ReactECharts
+                option={options}
+                style={{ height: "200px", width: "100%" }}
+              />
+            </div>
+          </>
+        )}
       </Card>
     </Card>
   );
