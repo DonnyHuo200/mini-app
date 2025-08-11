@@ -26,8 +26,6 @@ const SolvBtc = () => {
 
   const currentChainId = useChainId();
 
-  console.log("currentChainId", currentChainId);
-
   const currentChainInfo = useMemo(() => {
     return supportedChains?.supportedChainsM.filter(
       (item: { chainId: number }) => item.chainId == currentChainId
@@ -38,11 +36,16 @@ const SolvBtc = () => {
   const { data: btcPoolInfo } = useQuery(getBtcPoolInfoQuery, {
     variables: {
       filter: {
-        poolSlotInfoId: currentChainInfo?.idAndCurrency[0]?.poolSlotInfoId,
+        poolSlotInfoId:
+          currentChainInfo?.idAndCurrency[
+            currentChainInfo?.idAndCurrency?.length - 1
+          ]?.poolSlotInfoId,
         phase: 2
       }
     },
-    skip: !currentChainInfo?.idAndCurrency[0]?.poolSlotInfoId
+    skip: !currentChainInfo?.idAndCurrency[
+      currentChainInfo?.idAndCurrency?.length - 1
+    ]?.poolSlotInfoId
   });
 
   // solv fee
