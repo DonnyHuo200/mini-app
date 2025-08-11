@@ -1,6 +1,6 @@
 import classNames from "classnames";
 import { useState } from "react";
-import { useAccount } from "wagmi";
+import { useAccount, useChainId } from "wagmi";
 
 import { Box, Card, Tabs } from "@radix-ui/themes";
 import { useSolvBtcStore } from "@/states";
@@ -16,7 +16,7 @@ const BTCPlus = () => {
 
   const [active, setActive] = useState("deposit");
 
-  const { chainId } = useAccount();
+  const currentChainId = useChainId();
 
   const { data: supportedChains } = useQuery(YieldPoolSupportedChains, {
     variables: {
@@ -25,10 +25,8 @@ const BTCPlus = () => {
   });
 
   const supportedChain = supportedChains?.yieldPoolSupportedChains?.find(
-    (chain: { chainId: number }) => chain?.chainId === chainId
+    (chain: { chainId: number }) => chain?.chainId === currentChainId
   );
-
-  console.log("supportedChain", supportedChain?.poolSlotInfoId);
 
   const { data: btcPoolInfo } = useQuery(getBtcPoolInfoQuery, {
     variables: {
@@ -38,8 +36,6 @@ const BTCPlus = () => {
     },
     skip: !supportedChain?.poolSlotInfoId
   });
-
-  console.log("btcPoolInfo", btcPoolInfo);
 
   return (
     <Card className="!p-6">
