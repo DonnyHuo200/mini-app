@@ -10,6 +10,7 @@ import {
 import {
   Button,
   Callout,
+  Card,
   Popover,
   Skeleton,
   Spinner,
@@ -366,17 +367,25 @@ const Withdraw = ({
         )}
       </div>
       <div className="mt-4">
-        <Callout.Root color="iris" className="!px-4 !py-2 !gap-2">
-          <Callout.Icon className="pt-1">
-            <InfoCircledIcon />
-          </Callout.Icon>
-          <Callout.Text>
-            <Text className="text-xs !leading-2">
-              {`Requested token will be available to claim under ‘My Portfolio’ - ’My Redemptions‘ `}
-              {`within 7 days.`}
-            </Text>
-          </Callout.Text>
-        </Callout.Root>
+        <div
+          className={classNames(
+            "flex items-start gap-2 rounded-lg p-3 pl-[18px]",
+            {
+              "bg-[#1d2129cc]": mode === "dark",
+              "bg-[#7667eb33]": mode === "light"
+            }
+          )}
+        >
+          <InfoCircledIcon
+            width={14}
+            height={14}
+            className="flex-shrink-0 text-mainColor mt-[2px]"
+          />
+          <div className="text-xs !leading-2">
+            {`Requested token will be available to claim under ‘My Portfolio’ - ’My Redemptions‘ `}
+            {`within 7 days.`}
+          </div>
+        </div>
       </div>
       {isConnected ? (
         <>
