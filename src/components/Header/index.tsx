@@ -16,13 +16,14 @@ import solvLogoLight from "@/assets/images/solv-logo-light.svg";
 import { ConnectWallet } from "../ConnectWallet";
 import Nav from "../Nav";
 
-const Header = () => {
+const Header = ({ className }: { className?: string }) => {
   const { mode, setMode, navOpen, setNavOpen } = useSolvBtcStore();
 
   return (
     <div
       className={classNames(
-        "fixed top-0 left-0 right-0 z-50 h-[50px] border-b  flex items-center justify-between px-4",
+        className,
+        "fixed top-0 left-0 right-0 w-full z-50 h-[50px] border-b flex items-center justify-between px-4",
         {
           "bg-black border-gray-800": mode === "dark",
           "bg-white border-gray-200": mode === "light"
@@ -44,7 +45,7 @@ const Header = () => {
             <HamburgerMenuIcon className="w-5 h-5" />
           )}
         </div>
-        {navOpen && <Nav />}
+        {navOpen && <Nav className="max-w-[500px] mx-auto" />}
       </div>
 
       <div className="flex items-center gap-2">

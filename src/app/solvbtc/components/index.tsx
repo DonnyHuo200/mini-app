@@ -126,10 +126,7 @@ const SolvBtc = () => {
         )}
       </div>
       <Tabs.Root value={activeTab} onValueChange={setActiveTab}>
-        <Tabs.List
-          className="flex !justify-between items-center !shadow-none"
-          justify="center"
-        >
+        <Tabs.List className="flex items-center !justify-around !shadow-none">
           <Tabs.Trigger
             value="Deposit"
             className={classNames("w-full", {

@@ -30,7 +30,7 @@ const navList = [
   }
 ];
 
-const Nav = () => {
+const Nav = ({ className }: { className?: string }) => {
   const router = useRouter();
   const { mode, setNavOpen } = useSolvBtcStore();
 
@@ -54,6 +54,7 @@ const Nav = () => {
   return (
     <div
       className={classNames(
+        className,
         "fixed top-[50px] left-0 right-0 z-50 w-full h-full p-4",
         {
           "bg-black": mode === "dark",

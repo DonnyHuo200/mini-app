@@ -330,7 +330,7 @@ const Highlights = () => {
     <Card className="mt-4 !p-6">
       <div className="text-[24px] mb-8 font-MatterSQ-Medium">Highlights</div>
       <div className="h-auto flex-1 font-MatterSQ-Regular text-[0.875rem] font-normal">
-        <div className="grid grid-cols-1 gap-y-7 md:grid-cols-3">
+        <div className="flex flex-col gap-8">
           {highlightsData.map((item) => (
             <Flex key={item.key}>
               <div className="size-10">{item.icon}</div>

@@ -12,15 +12,15 @@ const BodyProvider = ({ children }: { children: ReactNode }) => {
   const { noticeOpen } = useStore();
 
   return (
-    <>
-      <Header />
+    <div className="max-w-[500px] mx-auto">
+      <Header className="max-w-[500px] mx-auto" />
       <div className="pt-[50px]">
         {noticeOpen ? <Notice /> : null}
         {children}
       </div>
       <TradingDialog />
       <TradingResult />
-    </>
+    </div>
   );
 };
 

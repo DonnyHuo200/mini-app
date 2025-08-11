@@ -40,10 +40,7 @@ const Demo = () => {
           {dateUTCFormat(Number(time) * 1000, "DD/MM/YYYY")}
         </span>
       </div>
-      <Flex
-        justify="between"
-        className="flex-1 flex-row flex-wrap items-stretch mt-8"
-      >
+      <Flex justify="between" className="flex-1 flex-col items-stretch mt-8">
         <Flex justify="center" className="h-[auto] flex-1 text-sm">
           <div className="h-[auto] w-full font-MatterSQ-Regular">
             <div className="flex items-center justify-between mb-2 p-4 rounded-xl bg-grayColor/10">
@@ -101,7 +98,7 @@ const Demo = () => {
             )}
           </div>
         </Flex>
-        <Flex justify="center" className="h-[auto] w-full md:w-[38%]">
+        <Flex justify="center" className="h-[auto] w-full">
           {loading ? (
             <Flex justify="center" className="size-full">
               <Skeleton
