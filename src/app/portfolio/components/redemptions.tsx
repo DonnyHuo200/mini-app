@@ -5,7 +5,7 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useEffect, useMemo, useState } from "react";
 import { formatUnits } from "viem";
-import { useAccount, useChains } from "wagmi";
+import { useAccount, useChainId, useChains } from "wagmi";
 
 import { formatNumber as formatThousands } from "@/lib/utils";
 import { GET_ASSETS_PORTFOLIO_GRAPHQL } from "@/graphql/queries/assets";
@@ -20,7 +20,9 @@ import ClaimDialog from "./claimDialog";
 import RevokeDialog from "./revokeDialog";
 
 const Redemptions = () => {
-  const { address, chainId } = useAccount();
+  const { address } = useAccount();
+
+  const currentChainId = useChainId();
 
   const [limit] = useState(5);
 
@@ -227,7 +229,7 @@ const Redemptions = () => {
               </div>
             </div>
 
-            {asset?.chainId === chainId ? (
+            {asset?.chainId === currentChainId ? (
               <div className="flex items-center gap-2 mt-4">
                 <Button
                   className={classNames(

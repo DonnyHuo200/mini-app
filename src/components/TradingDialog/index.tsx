@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { useAccount, useChains } from "wagmi";
+import { useAccount, useChainId, useChains } from "wagmi";
 
 import { useStore } from "@/states";
 import DialogWrapper from "@/components/Dialog";
@@ -8,11 +8,11 @@ import trading from "@/assets/images/trading.svg";
 const TradingDialog = () => {
   const { tradingOpen, setTradingOpen, tradingInfo, tradingHash } = useStore();
 
-  const { chainId } = useAccount();
+  const currentChainId = useChainId();
 
   const chains = useChains();
 
-  const currentChain = chains.find((chain) => chain.id === chainId);
+  const currentChain = chains.find((chain) => chain.id === currentChainId);
   return (
     <DialogWrapper
       open={tradingOpen}

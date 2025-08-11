@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { useAccount, useChains } from "wagmi";
+import { useAccount, useChainId, useChains } from "wagmi";
 
 import { QueryBtcPlusAddresses } from "@/graphql/queries/btcplus";
 import { useQuery } from "@apollo/client";
@@ -9,17 +9,17 @@ import { CopyHelper } from "@/components/CopyHelper";
 import shareIcon from "@/assets/images/share.svg";
 
 const OnchainAddress = () => {
-  const { chainId } = useAccount();
+  const currentChainId = useChainId();
 
   const { data, loading } = useQuery(QueryBtcPlusAddresses);
 
   const info = data?.btcPlusAddresses.find(
-    (address: { chainId: number }) => address.chainId === chainId
+    (address: { chainId: number }) => address.chainId === currentChainId
   );
 
   const chains = useChains();
 
-  const currentChain = chains.find((chain) => chain.id === chainId);
+  const currentChain = chains.find((chain) => chain.id === currentChainId);
 
   return (
     <Card className="!p-6 my-4">

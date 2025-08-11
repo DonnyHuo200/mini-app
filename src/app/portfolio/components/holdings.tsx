@@ -16,7 +16,7 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useEffect, useMemo, useState } from "react";
 import { formatUnits } from "viem";
-import { useAccount, useChains } from "wagmi";
+import { useAccount, useChainId, useChains } from "wagmi";
 
 import { GetWrappedAssetsQuery } from "@/graphql/queries/wrapped-token";
 import { useQuery } from "@apollo/client";
@@ -29,7 +29,9 @@ import useAddTokenButton from "@/hooks/useAddToken";
 import WithdrawDialog from "./withdrawDialog";
 
 const Holdings = () => {
-  const { address, chainId } = useAccount();
+  const { address } = useAccount();
+
+  const currentChainId = useChainId();
 
   const { data, refetch, previousData } = useQuery(GetWrappedAssetsQuery, {
     variables: {
@@ -201,7 +203,7 @@ const Holdings = () => {
                 </div>
 
                 <div className="mt-4">
-                  {asset?.chainId === chainId ? (
+                  {asset?.chainId === currentChainId ? (
                     <>
                       {(asset.isYieldPool ||
                         asset.symbol?.toLocaleLowerCase() == "xsolv") &&

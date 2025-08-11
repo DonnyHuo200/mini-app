@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { useAccount, useChains } from "wagmi";
+import { useAccount, useChainId, useChains } from "wagmi";
 
 import { useStore } from "@/states";
 import { Button } from "@radix-ui/themes";
@@ -8,11 +8,11 @@ import success from "@/assets/images/tradeSuccess.svg";
 import DialogWrapper from "../Dialog";
 
 const TradingResult = () => {
-  const { chainId } = useAccount();
+  const currentChainId = useChainId();
 
   const chains = useChains();
 
-  const currentChain = chains.find((chain) => chain.id === chainId);
+  const currentChain = chains.find((chain) => chain.id === currentChainId);
 
   const {
     tradingResultOpen,
