@@ -43,7 +43,12 @@ const TradingResult = () => {
           {tradingResultInfo ? tradingResultInfo : ""}
         </div>
 
-        <Button className="!w-full !mt-8 !h-10 !rounded-full !bg-mainColor">
+        <Button
+          className="!w-full !mt-8 !h-10 !rounded-full !bg-mainColor"
+          onClick={() => {
+            setTradingResultOpen(false);
+          }}
+        >
           <span className="text-base font-MatterSQ-Regular">Comfirm</span>
         </Button>
 
