@@ -1,3 +1,5 @@
+import classNames from "classnames";
+
 import { Cross1Icon } from "@radix-ui/react-icons";
 import { Dialog } from "@radix-ui/themes";
 
@@ -21,7 +23,7 @@ const DialogWrapper = ({
   return (
     <Dialog.Root open={open} onOpenChange={onOpenChange}>
       <Dialog.Content
-        className={className}
+        className={classNames(className, "!max-w-[460px] mx-auto")}
         onInteractOutside={(e) => e.preventDefault()}
       >
         <Dialog.Title>
