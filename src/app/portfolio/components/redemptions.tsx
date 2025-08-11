@@ -94,6 +94,7 @@ const Redemptions = () => {
   const router = useRouter();
 
   const goToPage = (asset: any) => {
+    console.log("asset", asset);
     if (asset?.subtype === "FOF") {
       router.push(`/solvbtc#faqs`);
     }
@@ -157,15 +158,17 @@ const Redemptions = () => {
 
                 <button
                   className={classNames("text-left", {
-                    "text-yellow-500 underline decoration-dashed":
+                    "text-yellow-500":
                       asset?.redeemState === "Redeeming" ||
                       asset?.redeemState === "Pending",
                     "text-green-500": asset?.redeemState === "Claimable",
-                    "text-mainColor": asset?.redeemState === "Revoked"
+                    "text-mainColor": asset?.redeemState === "Revoked",
+                    "underline decoration-dashed":
+                      asset?.subtype === "FOF" || asset?.yieldType === "BTC+"
                   })}
                   disabled={
-                    asset?.redeemState === "Pending" ||
-                    asset?.redeemState === "Redeeming"
+                    asset?.redeemState === "Claimable" ||
+                    asset?.redeemState === "Revoked"
                   }
                   onClick={() => goToPage(asset)}
                 >
@@ -233,7 +236,7 @@ const Redemptions = () => {
               <div className="flex items-center gap-2 mt-4">
                 <Button
                   className={classNames(
-                    "!flex-1 !rounded-full disabled:!bg-gray-500/20",
+                    "!flex-1 !rounded-full disabled:!bg-gray-500/20 !h-[40px]",
                     {
                       "!bg-mainColor": asset?.redeemState === "Claimable"
                     }
@@ -249,7 +252,7 @@ const Redemptions = () => {
 
                 <Button
                   className={classNames(
-                    "!flex-1 !rounded-full disabled:!bg-gray-500/20",
+                    "!flex-1 !rounded-full disabled:!bg-gray-500/20 !h-[40px]",
                     {
                       "!bg-mainColor": asset?.redeemState === "Pending"
                     }
@@ -264,7 +267,10 @@ const Redemptions = () => {
                 </Button>
               </div>
             ) : (
-              <Button className="!w-full !mt-4 !rounded-full" disabled>
+              <Button
+                className="!w-full !mt-4 !rounded-full !h-[40px]"
+                disabled
+              >
                 Manage on Solv.Finance
               </Button>
             )}
