@@ -48,7 +48,6 @@ const PriceCharts = () => {
   const { navData, setNavData } = useBtcPlusStore();
 
   useEffect(() => {
-    console.log("data321321312", data);
     if (data) {
       handleNavData(data);
     }
@@ -75,7 +74,7 @@ const PriceCharts = () => {
 
       if (
         assetValue?.navsOpenFund &&
-        assetValue?.navsOpenFund?.serialData.length > 0
+        assetValue?.navsOpenFund?.serialData?.length > 0
       ) {
         _xAxis = assetValue?.navsOpenFund?.serialData.map(
           (item: NavHistoryData) => {
@@ -126,8 +125,8 @@ const PriceCharts = () => {
           yieldLists.push(yieldValue);
         });
 
-        const _length = assetValue?.navsOpenFund.serialData.length;
-        _dataItem = assetValue?.navsOpenFund?.serialData[_length - 1];
+        const _length = assetValue?.navsOpenFund?.serialData?.length;
+        _dataItem = assetValue?.navsOpenFund?.serialData?.[_length - 1];
 
         const arr = yieldLists;
 
@@ -147,7 +146,7 @@ const PriceCharts = () => {
       }
 
       setNavData({
-        data: assetValue.navsOpenFund,
+        data: assetValue?.navsOpenFund,
         xAxis: _xAxis,
         series: _series,
         dataItem: _dataItem,
@@ -331,25 +330,29 @@ const PriceCharts = () => {
     ]
   };
 
+  const lastPrice = useMemo(() => {
+    return navData && navData?.series[navData?.series?.length - 1];
+  }, [navData]);
+
   return (
     <Card className="mt-4 !p-6">
       <Card>
-        <p className="font-MatterSQ-Medium text-sm">Price Chart</p>
+        <div className="font-MatterSQ-Medium text-sm">Price Chart</div>
 
-        <p>
+        <div>
           <span className="font-MatterSQ-Regular text-xs text-gray">
             1 BTC at the start of the vault is now
           </span>{" "}
           <span className="font-MatterSQ-Medium text-[14px]">
-            {` ${navData?.series[navData.series.length - 1] || "--"}BTC`}
+            {lastPrice ? `${lastPrice} BTC` : "--"}
           </span>
-          <div className="relative flex size-full mt-6">
-            <ReactECharts
-              option={options}
-              style={{ height: "200px", width: "100%" }}
-            />
-          </div>
-        </p>
+        </div>
+        <div className="relative size-full mt-6">
+          <ReactECharts
+            option={options}
+            style={{ height: "200px", width: "100%" }}
+          />
+        </div>
       </Card>
     </Card>
   );
