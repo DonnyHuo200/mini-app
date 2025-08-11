@@ -21,9 +21,11 @@ import {
   Button,
   AlertDialog,
   Popover,
-  ChevronDownIcon
+  ChevronDownIcon,
+  Skeleton
 } from "@radix-ui/themes";
 import { parseAbi } from "abitype";
+import { useRouter } from "next/navigation";
 import { useEffect, useMemo, useState } from "react";
 
 import { Cross1Icon, InfoCircledIcon } from "@radix-ui/react-icons";
@@ -49,6 +51,8 @@ const ClaimDialog = ({
     setTradingHash
   } = useStore();
 
+  const router = useRouter();
+
   const viemABI = [
     {
       type: "function",
@@ -69,7 +73,7 @@ const ClaimDialog = ({
     args: [BigInt(asset?.tokenId)]
   });
 
-  const { data: delegateData } = useReadContract({
+  const { data: delegateData, isLoading: delegateLoading } = useReadContract({
     address: asset?.contractAddress,
     abi: delegateAbi,
     functionName: "delegateToConcreteView",
@@ -204,18 +208,24 @@ const ClaimDialog = ({
         <div className="text-sm mt-6">Claimable</div>
 
         <div className="text-2xl font-MatterSQ-Regular font-bold flex items-center gap-1 mt-1">
-          <span>
-            {formatNumber(
-              restrictDecimals(
-                formatUnits(
-                  totalClaimable ? BigInt(totalClaimable) : BigInt(0),
-                  asset?.currenyInfo?.decimals
-                ),
-                6
-              )
-            )}
-          </span>
-          <span>{asset?.currenyInfo?.symbol}</span>
+          {delegateLoading ? (
+            <Skeleton className="w-40 h-6" />
+          ) : (
+            <>
+              <span>
+                {formatNumber(
+                  restrictDecimals(
+                    formatUnits(
+                      totalClaimable ? BigInt(totalClaimable) : BigInt(0),
+                      asset?.currenyInfo?.decimals
+                    ),
+                    6
+                  )
+                )}
+              </span>
+              <span>{asset?.currenyInfo?.symbol}</span>
+            </>
+          )}
         </div>
 
         <div className="flex items-center justify-between gap-1 text-sm mt-4 bg-gray-400/10 py-2 px-4 rounded-md">
@@ -232,9 +242,14 @@ const ClaimDialog = ({
               </Popover.Content>
             </Popover.Root>
           </div>
-          <span>
-            {pendingRepaymentValue} {asset?.currenyInfo?.symbol}
-          </span>
+
+          {delegateLoading ? (
+            <Skeleton loading className="w-20 h-5" />
+          ) : (
+            <span>
+              {pendingRepaymentValue} {asset?.currenyInfo?.symbol}
+            </span>
+          )}
         </div>
         <div className="mt-6 w-full">
           <Button
@@ -245,7 +260,12 @@ const ClaimDialog = ({
             <span className="text-base">Confirm</span>
           </Button>
         </div>
-        <div className="text-sm mt-4 text-mainColor text-center">
+        <div
+          className="text-sm mt-4 text-mainColor text-center"
+          onClick={() => {
+            router.push("/btcPlus");
+          }}
+        >
           Looking for a better yield option? Check out BTC+!
         </div>
       </AlertDialog.Content>
