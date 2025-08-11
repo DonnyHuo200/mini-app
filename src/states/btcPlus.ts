@@ -8,6 +8,8 @@ interface useBtcPlusStore {
   updateTime: (data: number) => void;
   btcPlusStats: any;
   updateBtcPlusStats: (data: any) => void;
+  navData: any;
+  setNavData: (data: any) => void;
 }
 
 const useBtcPlusStore = create<useBtcPlusStore>()(
@@ -16,7 +18,9 @@ const useBtcPlusStore = create<useBtcPlusStore>()(
       time: 0,
       updateTime: (data: number) => set({ time: data }),
       btcPlusStats: {},
-      updateBtcPlusStats: (data: any) => set({ btcPlusStats: data })
+      updateBtcPlusStats: (data: any) => set({ btcPlusStats: data }),
+      navData: {},
+      setNavData: (data: any) => set({ navData: data })
     }),
     persistConfig("btcPlus-storage")
   )

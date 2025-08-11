@@ -12,6 +12,7 @@ import Highlights from "./components/highlights";
 import Info from "./components/info";
 import OnchainAddress from "./components/onchainAddress";
 import Overview from "./components/overview";
+import PriceCharts from "./components/priceCharts";
 import BTCTrade from "./components";
 
 const BtcPlusPage = () => {
@@ -30,6 +31,7 @@ const BtcPlusPage = () => {
     <div>
       <Info />
       <BTCTrade />
+      <PriceCharts />
       <BoostRewards />
       <Overview />
       <BtcPlusRule />
