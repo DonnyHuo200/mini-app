@@ -24,7 +24,6 @@ import {
   ChevronDownIcon
 } from "@radix-ui/themes";
 import { parseAbi } from "abitype";
-import { ethers } from "ethers";
 import { useEffect, useMemo, useState } from "react";
 
 import { Cross1Icon, InfoCircledIcon } from "@radix-ui/react-icons";
