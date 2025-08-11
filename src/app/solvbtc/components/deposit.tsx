@@ -7,12 +7,7 @@ import {
   useWaitForTransactionReceipt,
   useWriteContract
 } from "wagmi";
-import {
-  formatNumber,
-  GET_TOKEN_ICON,
-  restrictDecimals,
-  truncateToDecimals
-} from "@/lib";
+import { formatNumber, GET_TOKEN_ICON, restrictDecimals } from "@/lib";
 import BigNumber from "bignumber.js";
 import classNames from "classnames";
 import Image from "next/image";
@@ -200,8 +195,7 @@ const Deposit = ({
     approveError,
     setTradingOpen,
     setTradingHash,
-    setTradingInfo,
-    depositAmount
+    setTradingInfo
   ]);
 
   const depositChange = (e: React.ChangeEvent<HTMLInputElement>) => {

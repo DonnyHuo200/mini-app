@@ -104,11 +104,17 @@ const Holdings = () => {
       </div>
       {!wrappedAssets ? (
         <>
-          <Skeleton className="w-full h-[20px] mt-4" />
-          <Skeleton className="w-full h-[20px] mt-4" />
-          <Skeleton className="w-full h-[20px] mt-4" />
-          <Skeleton className="w-full h-[20px] mt-4" />
-          <Skeleton className="w-full h-[20px] mt-4" />
+          {[1, 2, 3, 4].map((item) => {
+            return (
+              <Card key={item} className="text-sm mt-4 !py-4 ">
+                <Skeleton className="w-full h-[20px] mt-2" />
+                <Skeleton className="w-full h-[20px] mt-4" />
+                <Skeleton className="w-full h-[20px] mt-4" />
+                <Skeleton className="w-full h-[20px] mt-4" />
+                <Skeleton className="w-full h-[20px] mt-4" />
+              </Card>
+            );
+          })}
         </>
       ) : (
         <div>

@@ -163,20 +163,7 @@ const RevokeDialog = ({
       );
       setTradingResultOpen(true);
     }
-  }, [
-    revokeSuccess,
-    revokeError,
-    revokeLoading,
-    refetchAllowance,
-    setTradingOpen,
-    setTradingResultTitle,
-    setTradingResultInfo,
-    setTradingInfo,
-    setTradingResultOpen,
-    onOpenChange,
-    asset?.balance,
-    asset?.currenyInfo?.symbol
-  ]);
+  }, [revokeLoading, revokeError, revokeSuccess, onOpenChange]);
 
   return (
     <AlertDialog.Root open={open} onOpenChange={onOpenChange}>

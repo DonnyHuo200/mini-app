@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 
-import { MiniKitContextProvider } from "@/providers/MiniKitProvider";
+import { Provider } from "@/providers";
 
 import "../assets/css/globals.css";
 import "@radix-ui/themes/styles.css";
@@ -38,7 +38,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <MiniKitContextProvider>{children}</MiniKitContextProvider>
+        <Provider>{children}</Provider>
       </body>
     </html>
   );

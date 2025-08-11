@@ -131,7 +131,7 @@ const Withdraw = ({
 
   const [withdrawAmount, setWithdrawAmount] = useState("");
 
-  // deposit
+  // withdraw
   const {
     writeContract: withdrawWriteContract,
     isPending: withdrawPending,
@@ -201,8 +201,7 @@ const Withdraw = ({
     withdrawLoading,
     setTradingOpen,
     setTradingHash,
-    setTradingInfo,
-    withdrawAmount
+    setTradingInfo
   ]);
 
   const depositChange = (e: React.ChangeEvent<HTMLInputElement>) => {

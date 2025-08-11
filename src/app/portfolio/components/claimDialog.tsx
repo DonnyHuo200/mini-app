@@ -126,11 +126,14 @@ const ClaimDialog = ({
     data: claimDataHash
   } = useWriteContract();
 
-  const { isLoading: claimLoading, isSuccess: claimSuccess } =
-    useWaitForTransactionReceipt({
-      hash: claimDataHash,
-      query: { enabled: !!claimDataHash }
-    });
+  const {
+    isLoading: claimLoading,
+    isSuccess: claimSuccess,
+    error: claimError
+  } = useWaitForTransactionReceipt({
+    hash: claimDataHash,
+    query: { enabled: !!claimDataHash }
+  });
 
   const ClaimFun = async () => {
     await claimWriteContract({
@@ -172,13 +175,11 @@ const ClaimDialog = ({
       );
       setTradingResultOpen(true);
     }
-  }, [
-    claimSuccess,
-    onOpenChange,
-    claimLoading,
-    totalClaimable,
-    asset?.currenyInfo?.decimals
-  ]);
+    if (claimError) {
+      console.error("Claim Error");
+      onOpenChange(false);
+    }
+  }, [claimSuccess, claimLoading, claimError]);
 
   return (
     <AlertDialog.Root open={open} onOpenChange={onOpenChange}>
