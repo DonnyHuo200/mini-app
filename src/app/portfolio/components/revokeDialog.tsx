@@ -45,8 +45,6 @@ const RevokeDialog = ({
     return data?.marketContract;
   }, [data]);
 
-  console.log("marketContract", marketContract);
-
   // get allowance
   const { data: allowanceAddress, refetch: refetchAllowance } = useReadContract(
     {

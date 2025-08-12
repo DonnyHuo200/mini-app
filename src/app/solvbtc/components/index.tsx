@@ -66,8 +66,6 @@ const SolvBtc = () => {
     skip: !btcPoolInfo?.btcPoolInfo?.poolInfo?.poolOrderInfo?.poolId
   });
 
-  console.log("redemptionFeeRate", redemptionFeeRate);
-
   // details
   const { data: details } = useQuery(getPoolsQueryForStakeDetails, {
     variables: {

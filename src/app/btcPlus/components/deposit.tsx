@@ -224,11 +224,6 @@ const Deposit = ({ btcPoolInfo }: { btcPoolInfo: any }) => {
   } = useWriteContract();
 
   const depositFun = async () => {
-    console.log(
-      "parseUnits(depositAmount, baseToken?.decimals)",
-      parseUnits(baseTokenAmount, selectedCurrency?.decimals)
-    );
-
     const expireTime = Number(plus(getCurrentTimestamp(), "3600"));
 
     await depositWriteContract({
