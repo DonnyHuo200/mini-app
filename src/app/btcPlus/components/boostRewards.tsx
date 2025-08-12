@@ -25,8 +25,6 @@ const BoostRewards = () => {
     skip: !address
   });
 
-  console.log("data", data);
-
   const { btcPlusStats } = useBtcPlusStore();
 
   return (

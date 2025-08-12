@@ -101,8 +101,6 @@ const ClaimDialog = ({
     );
   }, [amountStr, asset?.nav, asset?.productInfo?.contractInfo?.decimals]);
 
-  console.log("totalClaimable", totalClaimable, amountStr);
-
   const pendingRepaymentValue = useMemo(() => {
     const assetValue = outputTokenAmount(
       multipliedBy(asset?.balance || "0", asset.nav || "0"),

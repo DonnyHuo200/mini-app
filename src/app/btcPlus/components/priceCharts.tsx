@@ -37,8 +37,6 @@ const PriceCharts = () => {
     return data?.navsOpenFund?.serialData ? data?.navsOpenFund?.serialData : [];
   }, [data]);
 
-  console.log("serialData", serialData);
-
   //   const nav = useMemo(() => {
   //     return serialData[serialData?.length - 1]?.nav;
   //   }, [serialData]);

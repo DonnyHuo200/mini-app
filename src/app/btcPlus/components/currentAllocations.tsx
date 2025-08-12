@@ -25,8 +25,6 @@ const Demo = () => {
     return btcPlusAllocations?.btcPlusAllocations.allocations;
   }, [btcPlusAllocations]);
 
-  console.log("allocations", allocations);
-
   const { time } = useBtcPlusStore();
 
   return (

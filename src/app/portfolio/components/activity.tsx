@@ -103,7 +103,6 @@ const Filter = () => {
 
   useEffect(() => {
     const chain = chains.find((chain) => chain.id === 2649);
-    console.log("chain", chain);
   }, [chains]);
 
   const { data } = useQuery(GET_ProductNamesForActivity, {
@@ -223,7 +222,6 @@ const Filter = () => {
               name="Network"
               defaultValue="all"
               onValueChange={(value: string) => {
-                console.log("value", value);
                 if (value === "all") {
                   setNetwork([]);
                 } else {
